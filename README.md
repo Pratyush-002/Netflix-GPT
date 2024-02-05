@@ -4,10 +4,12 @@
 2. install tailwind css
 3. created
     - header
-4. login form    
-
-
-
+4. login/signup form
+5. form validation   
+6. useRef hook
+7. firebase setup
+8. deploy our app to production 
+ 
 
 
 # feature 
