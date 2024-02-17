@@ -2,16 +2,20 @@ import React, { useRef, useState } from 'react'
 import Header from './Header'
 import { checkValidation } from '../utils/Validation';
 import { auth } from '../utils/Firebase';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { useDispatch } from 'react-redux';
+import { addUser } from '../utils/userSlice';
 
 const Login = () => {
 
     const [signUpForm, setsignUpForm] = useState(true);
     const [errorMsg, setErrorMsg] = useState(null)
+    const dispatch = useDispatch();
 
+    const name = useRef(null);
     const email = useRef(null);
     const password = useRef(null);
-    // const fullName = useRef(null);
+    
 
     const toggleSignUpForm = () =>{
         setsignUpForm(!signUpForm)
@@ -25,10 +29,19 @@ const Login = () => {
         if(!signUpForm) {
          createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
          .then((userCredential) => {
-             // Signed up 
+            //  Signed up 
             const user = userCredential.user;
+              updateProfile(user, {
+                  displayName: name.current.value , photoURL:"https://media.licdn.com/dms/image/D4D03AQFuB4a_U9jmuQ/profile-displayphoto-shrink_800_800/0/1704185385876?e=1712793600&v=beta&t=Vmtj6F7xNpN5GXmUEMqG6bGdkMQ3kPfh0OWMXiVhFzo",
+               }).then(() => {
+                const {uid, email, displayName, photoURL} =auth.currentUser;
+                dispatch(addUser({uid: uid, email: email, displayName: displayName, photoURL:photoURL}));
+                  // ...
+               }).catch((error) => {
+                 setErrorMsg(error.checkForValidation)
+               });
+              
             console.log(user)
-            // ...
              })
             .catch((error) => {
             const errorCode = error.code;
@@ -69,16 +82,16 @@ const Login = () => {
             {signUpForm ? "Sign In" : "Sign Up"}
             </h1>
         {!signUpForm && (
-            <input type='text' placeholder='Full Name' className='p-[16px] my-2 w-full bg-black bg-opacity-20 border-white border rounded'>
+            <input ref={name} type='text' placeholder='Full Name' className='p-[16px] my-2 w-full bg-black bg-opacity-20 border-white border rounded'>
             </input>)}
         <input 
             ref={email} type='text' placeholder='Email or Phone Number' className='p-[16px] my-2 w-full bg-black bg-opacity-20 border-white border rounded'/>
         <input 
-            ref={password} type='text' placeholder='Password' className='p-[16px] my-2 w-full  bg-black bg-opacity-20 border-white border rounded'/>
+            ref={password} type='password' placeholder='Password' className='p-[16px] my-2 w-full  bg-black bg-opacity-20 border-white border rounded'/>
             <p className='text-red-500'>{errorMsg}</p>
-        <button className='py-2 px-6 my-4 w-full bg-red-600 rounded' onClick={onButtonClick}>Sign In</button>
-        <p className='text-center cursor-pointer'>forgot Password ?</p>
-        <p className='pt-5 mt-5 cursor-pointer' onClick={toggleSignUpForm}>{signUpForm ? "New to Netflix?Sign up Now" : "Already Registerd!Sign in Now"}</p>
+        <button className='py-2 px-6 my-4 w-full bg-red-600 rounded' onClick={onButtonClick}>{signUpForm ? "Sign In" : "Sign Up"}</button>
+        <p className='text-center cursor-pointer'>Forgot Password ?</p>
+        <p className='pt-5 mt-5 cursor-pointer' onClick={toggleSignUpForm}>{signUpForm ? "New to Netflix? Sign up now" : "Already registerd! Sign in now"}</p>
     </form>
     </div>
   )
