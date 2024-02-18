@@ -7,6 +7,8 @@ export const apiOption = {
   };
 
 
+  export const MOVIE_CARD_URL = "https://image.tmdb.org/t/p/w500";
+
   // export const play_Icon = "https://cdn-icons-png.flaticon.com/128/27/27223.png"
 
   // export const icon = "https://icons8.com/icon/85165/play";
