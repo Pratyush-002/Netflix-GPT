@@ -12,3 +12,6 @@ export const apiOption = {
   // export const play_Icon = "https://cdn-icons-png.flaticon.com/128/27/27223.png"
 
   // export const icon = "https://icons8.com/icon/85165/play";
+
+  export const OPENAI_KEY = "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"
+  
