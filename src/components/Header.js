@@ -5,6 +5,7 @@ import { onAuthStateChanged, signOut } from 'firebase/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { addUser, removeUser } from '../utils/userSlice';
 import { toggleGptSearchView } from '../utils/gptSlice';
+import { USER_PHOTO } from '../utils/constant';
 
 
 const Header = () => {
@@ -59,7 +60,7 @@ const Header = () => {
         onClick={handleGptSearchClick}
           >GPT Search</button>
         <img className='w-12 h-12 m-3 rounded-full'
-        src="https://media.licdn.com/dms/image/D4D03AQFuB4a_U9jmuQ/profile-displayphoto-shrink_800_800/0/1704185385876?e=1712793600&v=beta&t=Vmtj6F7xNpN5GXmUEMqG6bGdkMQ3kPfh0OWMXiVhFzo"
+        src={USER_PHOTO}
         alt='profile logo'/>
         <button onClick={handleSignOut} className='text-white cursor-pointer font-bold'>Sign Out</button>
       </div>}
