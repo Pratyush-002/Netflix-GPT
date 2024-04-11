@@ -47,10 +47,10 @@ const GptSearchBar = () => {
   }
 
   return (
-    <div className='pt-[12%] text-center'>
-        <form className='h-[71px] pt-[24px] bg-red-700 mr-[35%] ml-[35%] flex items-center rounded-full' onSubmit={(e)=> e.preventDefault()}>
-            <input ref={searchText} type='text' className='w-[87%] h-[100%] text-center rounded-full relative top-[-12px] right-[-11px]' placeholder='Search suggestion'/>
-            <button className='top-[-13px] right-[-15px] relative'
+    <div className='top-[12rem] relative text-center sm:top-[8rem]'>
+        <form className='w-[19rem] ml-[5%] h-[56px] sm:w-[27rem] sm:h-[71px] sm:pt-[24px] md:ml-[35%] bg-red-700 mr-[35%] flex items-center rounded-full' onSubmit={(e)=> e.preventDefault()}>
+            <input ref={searchText} type='text' className='h-[44px] top-[-1px] right-[-7px] w-[87%] sm:h-[100%] sm:top-[-12px] sm:right-[-11px] text-center rounded-full relative' placeholder='Search suggestion'/>
+            <button className='top-[-2px] right-[-7px] md:top-[-13px] md:right-[-15px] relative'
             onClick={handleGptSearchClick}><img className='w-[34px] h-[34px] drop-shadow-[2px_4px_2px_black]' src='https://img.icons8.com/sf-regular/48/000000/search.png' alt='imgsrc'/></button>
         </form>
     </div>
